@@ -1,0 +1,48 @@
+body,html{
+    margin: 0;
+    padding: 0;
+}
+#calculator{
+    width: 260px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    margin: 10px auto;
+    border-radius: 8px;
+}
+h2{
+    text-align: center;
+}
+#resultView:read-only{
+    background-color: #ffffff;
+}
+.module-div{
+    margin-top: 10px;
+}
+.normal-div,
+.loan-div,
+.register-div{
+    margin-left: 15px;
+    margin-top: 10px;
+    width: 100%;
+    display: none;
+}
+.row{
+    margin-top: 5px;
+    width: 100%;
+}
+.row button{
+    width: 56px;
+    height: 35px;
+    background-color: rgba(51,122,183,1);
+    color: #fff;
+}
+.normal-div .row button:hover{
+    background-color: rgba(51,122,183,0.5);
+    color: #000;
+}
+.loan-div .form-control,
+.register-div .form-control{
+    width: 150px;
+    height:  25px;
+    display: inline-block;
+}

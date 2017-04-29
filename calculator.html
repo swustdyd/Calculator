@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>计算器</title>
+    <link href="css/bootstrap.css"  rel="stylesheet" type="text/css">
+    <link href="css/calculator.css"  rel="stylesheet" type="text/css">
+    <script src="jQuery/jquery-3.1.1.min.js"></script>
+    <script src="js/arithmetic.js"></script>
+</head>
+<body>
+    <div id="calculator">
+        <h2>计算器</h2>
+        <input type="text" class="form-control" id="resultView" readonly/>
+        <div class="module-div">
+            <input type="radio" name="module" value="normal" id="normalModule"/>&nbsp;一般模式&emsp;
+            <input type="radio" name="module" value="loan"/>&nbsp;贷款模式&emsp;
+            <input type="radio" name="module" value="register"/>&nbsp;收银机
+        </div>
+        <div class="normal-div single-module">
+            <div class="row">
+                <button class="btn operator">MC</button>
+                <button class="btn operator">MR</button>
+                <button class="btn operator">MS</button>
+                <button class="btn operator">M+</button>
+            </div>
+            <div class="row">
+                <button class="btn back-space" onclick="backSpace()"><b class="glyphicon glyphicon-arrow-left"></b></button>
+                <button class="btn operator">CE</button>
+                <button class="btn operator">C</button>
+                <button class="btn operator">/</button>
+            </div>
+            <div class="row">
+                <button class="btn number">7</b></button>
+                <button class="btn number">8</button>
+                <button class="btn number">9</button>
+                <button class="btn operator">*</button>
+            </div>
+            <div class="row">
+                <button class="btn number">4</button>
+                <button class="btn number">5</button>
+                <button class="btn number">6</button>
+                <button class="btn operator">-</button>
+            </div>
+            <div class="row">
+                <button class="btn number">1</button>
+                <button class="btn number">2</button>
+                <button class="btn number">3</button>
+                <button class="btn operator">+</button>
+            </div>
+            <div class="row">
+                <button class="btn number">0</button>
+                <button class="btn number">.</button>
+                <button class="btn operator" equal="equal">=</button>
+            </div>
+        </div>
+        <div class="loan-div single-module">
+            <p>
+                <font color="red">*</font>贷款金额：
+                <input onkeyup="this.value = this.value.replace(/\D/,'')" placeholder="只能输入整数"
+                       maxlength="9" id="loanNum" class="form-control" type="text"/>
+            </p>
+            <p>
+                <font color="red">*</font>贷款年限：
+                <input onkeyup="this.value = this.value.replace(/\D/,'')" maxlength="2"  placeholder="只能输入整数"
+                       id="loanTime" class="form-control" type="text"/>
+            </p>
+            <p>&emsp;<font color="red">*</font>年利率：
+                <input onkeyup="this.value = this.value.replace(/\D/,'')" placeholder="只能输入整数" maxlength="2"
+                       id="loanInterest" class="form-control" type="text"/>%
+            </p>
+            <p>
+                <input type="radio" name="loan-module" value="simple" checked/>&nbsp;单利&emsp;
+                <input type="radio" name="loan-module" value="interest"/>&nbsp;复利&emsp;
+            </p>
+            <div class="row">
+                <button class="btn">/</button>
+                <button class="btn">7</b></button>
+                <button class="btn">8</button>
+                <button class="btn">9</button>
+            </div>
+            <div class="row">
+                <button class="btn"><b class="glyphicon glyphicon-arrow-left"></b></button>
+                <button class="btn">4</button>
+                <button class="btn">5</button>
+                <button class="btn">6</button>
+            </div>
+            <div class="row">
+                <button class="btn">CE</button>
+                <button class="btn">1</button>
+                <button class="btn">2</button>
+                <button class="btn">3</button>
+            </div>
+            <div class="row">
+                <button class="btn clear" onclick="clearLoan()">C</button>
+                <button class="btn">0</button>
+                <button class="btn">.</button>
+                <button class="btn count" onclick="countLoan()">计算</button>
+            </div>
+        </div>
+        <div class="register-div single-module">
+            <p>成人数量：<input onkeyup="this.value = this.value.replace(/\D/,'')" placeholder="只能输入整数" maxlength="3" id="regAduNum" class="form-control" type="text"/></p>
+            <p>小孩数量：<input onkeyup="this.value = this.value.replace(/\D/,'')" placeholder="只能输入整数" maxlength="3" id="regChildNum" class="form-control" type="text"/></p>
+            <p>
+                优惠券类型&emsp;
+                <input type="radio" name="coupon" value="100" checked/>&nbsp;100&emsp;
+                <input type="radio" name="coupon" value="50"/>&nbsp;50&emsp;
+            </p>
+            <p>折扣：
+                <input placeholder="0.1折-9.9折" id="regDiscount" style="width: 130px;"class="form-control" type="text"
+                       />&nbsp;折
+            </p>
+            <div class="row">
+                <button class="btn">/</button>
+                <button class="btn">7</b></button>
+                <button class="btn">8</button>
+                <button class="btn">9</button>
+            </div>
+            <div class="row">
+                <button class="btn"><b class="glyphicon glyphicon-arrow-left"></b></button>
+                <button class="btn">4</button>
+                <button class="btn">5</button>
+                <button class="btn">6</button>
+            </div>
+            <div class="row">
+                <button class="btn">CE</button>
+                <button class="btn">1</button>
+                <button class="btn">2</button>
+                <button class="btn">3</button>
+            </div>
+            <div class="row">
+                <button class="btn clear" onclick="clearReg()">C</button>
+                <button class="btn">0</button>
+                <button class="btn">.</button>
+                <button class="btn count" onclick="countReg()">结算</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script type="text/javascript">
+    var operator = "";//记录最近一次的运算符
+    var currentResult = "";//记录当前的运算结果
+    var currentNumber = "";//记录用户输入的最近一次的数字
+    var isNumberDown = false;//数字键按下
+    var isOperatorDown = false;//运算符按下
+
+    /**
+     * 初始化页面，显示一般模式
+     */
+    $(document).ready(function () {
+        $(".normal-div").css("display", "block");
+        $("#normalModule").prop("checked", "checked");
+        $(".loan-div .btn, .register-div .btn").attr("disabled", "true");
+        $(".loan-div .clear, .register-div .clear").removeAttr("disabled");
+        $(".loan-div button.count, .register-div button.count").removeAttr("disabled");
+    });
+
+    /**
+     * 监听模式的选择
+     */
+    $(".module-div input").click(function () {
+        $(".single-module").css("display", "none");//隐藏所有的模式
+        var _class = "." + $(this).val() + "-div";
+        $(_class).css("display", "block");//显示当前选中的模式
+    });
+
+    /**
+     * 监听运算符按下的事件
+     */
+    $(".operator").click(function () {
+        if($(this).attr("equal") == "equal"){
+            startArithmetic();//开始运算
+            show(currentResult);//显示运算的结果
+            currentNumber = "";//清空当前数字
+        }
+        if(currentResult == ""){//计算结果为空，将当前数字赋值给结果
+            currentResult = currentNumber
+        }
+        operator = $(this).text();//获取当前的运算符
+        if(operator == "MC" || operator == "MR" || operator == "MS" || operator == "M+"
+            || operator == "CE" || operator == "C"){//特殊运算符直接执行
+            startArithmetic();
+        }
+        isNumberDown = false;
+        isOperatorDown = true;
+        currentNumber = "";//清空当前数字
+    });
+
+    /**
+     * 监听数字键按下的事件
+     */
+    $(".number").click(function () {
+        var number = $(this).text();//获取按下的数字
+        currentNumber += number;
+        var showString;
+        if(isOperatorDown){//重新输入数字
+            showString = currentNumber;
+        }else {
+            showString = $("#resultView").val() + number;
+        }
+        show(showString);
+        isNumberDown = true;
+        isOperatorDown = false;
+    });
+
+    /**
+     * 删除显示的数字的后一位
+     */
+    function backSpace() {
+        var result = $("#resultView").val();
+        result = result.toString();
+        result = result.substring(0, result.length - 1);
+        if(isOperatorDown){//运算符按下，即当前显示的是运算结果
+            currentResult = currentResult.toString();
+            currentResult = currentResult.substring(0, currentResult.length - 1);
+            currentResult = parseFloat(currentResult == "" ? "0" : currentResult);
+        }
+        $("#resultView").val(result);
+    }
+
+    /**
+     * 显示字符串
+     * @param string
+     */
+    function show(string) {
+        $("#resultView").val(string);
+    }
+
+    /**
+     * 计算贷款
+     */
+    function countLoan() {
+        var model = $(".loan-div input[type=radio]:checked").val();
+        var result;
+        var p = $("#loanNum").val();
+        var t = $("#loanTime").val();
+        var r = parseFloat($("#loanInterest").val() / 100);
+        if(model == "simple"){//单利
+            result = p * ( 1 + r * t );
+        }else {//复利
+            result = p * Math.pow(1 + r, t);
+        }
+        $("#resultView").val(result);
+    }
+
+    /**
+     * 清除贷款的相关数据
+     */
+    function clearLoan() {
+        $("#loanNum").val("");
+        $("#loanTime").val("");
+        $("#loanInterest").val("");
+        $("#resultView").val("");
+    }
+
+    /**
+     * 收款机计算
+     */
+    function countReg() {
+        var dateType = judgeDate();//获取节假日类型
+        if(dateType == "undefined"){
+            alert("非服务时间");
+            return;
+        }
+        var regAduNum = parseInt($("#regAduNum").val() == "" ? "0" : $("#regAduNum").val());
+        var regChildNum = parseInt($("#regChildNum").val() == "" ? "0" : $("#regChildNum").val());
+        var regDiscount = parseFloat($("#regDiscount").val() == "" ? "10" : $("#regDiscount").val());
+        if(regAduNum + regChildNum >= 4){//四人同行 一人免费
+            if(regChildNum == 0){
+                regAduNum--;
+            }else {
+                regChildNum--;
+            }
+        }
+        var totlaCount = 0;
+        if(dateType == "weekend"){
+            totlaCount += regAduNum * 688 + regChildNum * 488;
+        }
+        if(dateType == "weekdayNoon"){
+            totlaCount += regAduNum * 368 + regChildNum * 168;
+        }
+        if(dateType == "weekdayNight"){
+            totlaCount += regAduNum * 586 + regChildNum * 386;
+        }
+        var coupon = $(".register-div input[type=radio]:checked").val();
+        if(totlaCount > 1000){
+            totlaCount -= parseInt(coupon);
+        }
+
+        if(totlaCount > 1200){
+            totlaCount *= regDiscount / 10;
+        }
+        $("#resultView").val(totlaCount);
+    }
+
+    /**
+     * 判断节假日
+     * @return result 1.weekend 周末, 2.weekdayNoon 平日中午， 3.weekdayNight 平日晚上 4.undefined 非服务时间
+     */
+    function judgeDate() {
+        var date =  new Date();
+        var result;
+        var day = date.getDay();//获取星期几，0.星期日、1.星期一 ... 6.星期六
+        var hours = date.getHours();//获取小时 0-24
+
+        if (hours >= 10 && hours < 14){//中午
+            if(day == 0 || day == 6){//周末
+                result = "weekend";
+            }else{
+                result = "weekdayNoon";
+            }
+        }else if(hours >= 16 && hours < 18){//晚上
+            if(day == 0 || day == 6){//周末
+                result = "weekend";
+            }else{
+                result = "weekdayNight";
+            }
+        }else {
+            result = "undefined";
+        }
+        return result;
+    }
+
+    /**
+     * 清除收款机相关数据
+     */
+    function clearReg() {
+        $("#regAduNum").val("");
+        $("#regChildNum").val("");
+        $("#regDiscount").val("");
+        $("#resultView").val("");
+    }
+</script>
+</html>
